@@ -24,3 +24,14 @@ const config = { childList: true, subtree: true };
 
 // Start observing
 observer.observe(targetNode, config);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const chatButton = document.querySelector('button[data-qa-id="chat-button"]');
+
+    if (chatButton) {
+        chatButton.addEventListener('click', () => {
+            console.log('Chat button clicked');
+        });
+    }
+});
+
