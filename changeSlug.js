@@ -9,13 +9,14 @@ const observer = new MutationObserver((mutations) => {
             if (inputElement) {
                 inputElement.setAttribute('data-placeholder', 'look I changed');
             }
+                // Update the CSS for .screen__POUUM
+    		const style = document.createElement('style');
+    		style.type = 'text/css';
+    		style.innerHTML = '.screen__POUUM { --color: #FF69B4; }';
+    		document.head.appendChild(style);
         }
     });
-    // Update the CSS for .screen__POUUM
-    const style = document.createElement('style');
-    style.type = 'text/css';
-    style.innerHTML = '.screen__POUUM { --color: #FF69B4; }';
-    document.head.appendChild(style);
+
 });
 
 // Configuration of the observer
