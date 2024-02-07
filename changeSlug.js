@@ -1,20 +1,19 @@
 // Select the target node (usually the body or a broader container)
 const targetNode = document.body;
+var firstClick = 0;
 
 // Create a MutationObserver instance
 const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
+    	if(firstClick==0){
+    		console.log('Chat Button Clicked!');
+    		firstClick++;	
+    	}
         if (mutation.addedNodes.length) {
             const inputElement = document.querySelector('.composer__input__d6OQi');
             if (inputElement) {
                 inputElement.setAttribute('data-placeholder', 'look I changed');
-                console.log('Chat button clicked 2');
             }
-                // Update the CSS for .screen__POUUM
-    		const style = document.createElement('style');
-    		style.type = 'text/css';
-    		style.innerHTML = '.screen__POUUM { --color: #FF69B4; }';
-    		document.head.appendChild(style);
         }
     });
 
@@ -25,14 +24,4 @@ const config = { childList: true, subtree: true };
 
 // Start observing
 observer.observe(targetNode, config);
-
-document.addEventListener('DOMContentLoaded', () => {
-    const chatButton = document.querySelector('button[data-qa-id="chat-button"]');
-
-    if (chatButton) {
-        chatButton.addEventListener('click', () => {
-            console.log('Chat button clicked 2');
-        });
-    }
-});
 
