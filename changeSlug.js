@@ -8,11 +8,14 @@ const observer = new MutationObserver((mutations) => {
             const inputElement = document.querySelector('.composer__input__d6OQi');
             if (inputElement) {
                 inputElement.setAttribute('data-placeholder', 'look I changed');
-                // Optionally, disconnect the observer if you only need to make the change once
-                // observer.disconnect();
             }
         }
     });
+    // Update the CSS for .screen__POUUM
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = '.screen__POUUM { --color: #FF69B4; }';
+    document.head.appendChild(style);
 });
 
 // Configuration of the observer
