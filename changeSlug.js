@@ -8,6 +8,7 @@ const observer = new MutationObserver((mutations) => {
             const inputElement = document.querySelector('.composer__input__d6OQi');
             if (inputElement) {
                 inputElement.setAttribute('data-placeholder', 'look I changed');
+                console.log('Chat button clicked 2');
             }
                 // Update the CSS for .screen__POUUM
     		const style = document.createElement('style');
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (chatButton) {
         chatButton.addEventListener('click', () => {
-            console.log('Chat button clicked');
+            console.log('Chat button clicked 2');
         });
     }
 });
