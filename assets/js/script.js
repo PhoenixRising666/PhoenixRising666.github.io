@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    const leaderboardUrl = 'https://cj-ml-word-game.herokuapp.com/leaderboard';
+    const leaderboardUrl = 'https://cj-ml-word-game-351479244e3e.herokuapp.com/leaderboard';
 
     async function fetchLeaderboard() {
         const response = await fetch(leaderboardUrl);
