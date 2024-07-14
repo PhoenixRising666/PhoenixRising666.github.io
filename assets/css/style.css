@@ -25,3 +25,16 @@ th {
     background-color: #4CAF50;
     color: white;
 }
+
+/* style.css */
+
+/* Selector for the top bar */
+.top-bar {
+    background-color: #00995C;
+}
+
+/* Selector for the text in the top bar */
+.top-bar-text {
+    color: #0C1834;
+}
+
