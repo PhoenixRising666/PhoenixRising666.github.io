@@ -26,8 +26,6 @@ th {
     color: white;
 }
 
-/* style.css */
-
 /* Selector for the top bar */
 .top-bar {
     /*background-color: #00995C; */
@@ -38,3 +36,25 @@ th {
     color: #0C1834;
 }
 
+nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #00995C;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+#gameCanvas {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    height: 80vh;
+    border: 1px solid #000;
+}
