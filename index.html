@@ -29,38 +29,47 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const issuesUrl = 'https://api.github.com/repos/cjames1224/Word-Game/issues';
+            const token = 'YOUR_PERSONAL_ACCESS_TOKEN';  // Replace with your actual token
 
             async function fetchIssues() {
-                const response = await fetch(issuesUrl, {
-                    headers: {
-                        'Accept': 'application/vnd.github.v3+json'
+                try {
+                    const response = await fetch(issuesUrl, {
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
                     }
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error('Error fetching issues:', error);
                 }
-                return response.json();
             }
 
             function displayIssues(issues) {
                 const issuesContainer = document.getElementById('github-issues');
                 issuesContainer.innerHTML = ''; // Clear existing content
+                if (!issues || issues.length === 0) {
+                    issuesContainer.innerHTML = '<p>No issues found.</p>';
+                    return;
+                }
                 issues.forEach(issue => {
                     const issueElement = document.createElement('div');
                     issueElement.classList.add('card', 'mb-3');
                     issueElement.innerHTML = `
                         <div class="card-body">
                             <h5 class="card-title"><a href="${issue.html_url}" target="_blank">${issue.title}</a></h5>
-                            <p class="card-text">${issue.body.substring(0, 200)}...</p>
+                            <p class="card-text">${issue.body ? issue.body.substring(0, 200) : 'No description'}...</p>
                         </div>
                     `;
                     issuesContainer.appendChild(issueElement);
                 });
             }
 
-            fetchIssues()
-                .then(displayIssues)
-                .catch(error => console.error('Error fetching issues:', error));
+            fetchIssues().then(displayIssues);
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
