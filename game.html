@@ -13,25 +13,6 @@
         <a href="game.html">Game</a>
     </nav>
     <h1>Game</h1>
-    <canvas id="gameCanvas"></canvas>
-
-    <script>
-        // Placeholder for your WebGL game initialization code
-        const canvas = document.getElementById('gameCanvas');
-        const gl = canvas.getContext('webgl');
-
-        if (!gl) {
-            console.error('WebGL not supported, falling back on experimental-webgl');
-            gl = canvas.getContext('experimental-webgl');
-        }
-
-        if (!gl) {
-            alert('Your browser does not support WebGL');
-        } else {
-            // Your WebGL game code goes here
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);
-            gl.clear(gl.COLOR_BUFFER_BIT);
-        }
-    </script>
+    <iframe id="gameFrame" src="https://chris-morgan-word-game.s3.amazonaws.com/WordGame/index.html"></iframe>
 </body>
 </html>
