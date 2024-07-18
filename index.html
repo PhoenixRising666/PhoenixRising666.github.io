@@ -31,7 +31,11 @@
             const issuesUrl = 'https://api.github.com/repos/cjames1224/Word-Game/issues';
 
             async function fetchIssues() {
-                const response = await fetch(issuesUrl);
+                const response = await fetch(issuesUrl, {
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
@@ -47,7 +51,7 @@
                     issueElement.innerHTML = `
                         <div class="card-body">
                             <h5 class="card-title"><a href="${issue.html_url}" target="_blank">${issue.title}</a></h5>
-                            <p class="card-text">${issue.body}</p>
+                            <p class="card-text">${issue.body.substring(0, 200)}...</p>
                         </div>
                     `;
                     issuesContainer.appendChild(issueElement);
