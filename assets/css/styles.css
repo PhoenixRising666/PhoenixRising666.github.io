@@ -54,7 +54,7 @@ nav a:hover {
 #gameFrame {
     display: block;
     margin: 0 auto;
-    width: 100%;
-    height: 90vh; /* Increase the height to 90% of the viewport height */
+    width: 450px;
+    height: 842px;
     border: 1px solid #000;
 }
