@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="leaderboard.html">Leaderboard</a>
-            <a href="game.html">Game</a>
+    <header class="bg-success text-white py-3">
+        <nav class="container d-flex justify-content-center">
+            <a href="index.html" class="text-white mx-3">Home</a>
+            <a href="leaderboard.html" class="text-white mx-3">Leaderboard</a>
+            <a href="game.html" class="text-white mx-3">Game</a>
         </nav>
     </header>
-    <main>
-        <h1>Game</h1>
-        <iframe id="gameFrame" src="https://chris-morgan-word-game.s3.amazonaws.com/WordGame/index.html"></iframe>
+    <main class="container my-4">
+        <h1 class="text-center">Game</h1>
+        <div class="d-flex justify-content-center">
+            <iframe id="gameFrame" src="https://chris-morgan-word-game.s3.amazonaws.com/WordGame/index.html" width="450" height="842" class="border rounded shadow"></iframe>
+        </div>
     </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

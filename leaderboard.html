@@ -4,66 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="leaderboard.html">Leaderboard</a>
-            <a href="game.html">Game</a>
+    <header class="bg-success text-white py-3">
+        <nav class="container d-flex justify-content-center">
+            <a href="index.html" class="text-white mx-3">Home</a>
+            <a href="leaderboard.html" class="text-white mx-3">Leaderboard</a>
+            <a href="game.html" class="text-white mx-3">Game</a>
         </nav>
     </header>
-    <main>
-        <h1>Leaderboard</h1>
-        <table id="leaderboard">
-            <thead>
+    <main class="container my-4">
+        <h1 class="text-center">Leaderboard</h1>
+        <table class="table table-striped">
+            <thead class="thead-dark">
                 <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Score</th>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Score</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="leaderboard">
                 <!-- Leaderboard rows will be inserted here by JavaScript -->
             </tbody>
         </table>
-
-        <script src="assets/js/script.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', async function () {
-                const leaderboardUrl = 'https://cj-ml-word-game-351479244e3e.herokuapp.com/leaderboard';
-
-                async function fetchLeaderboard() {
-                    const response = await fetch(leaderboardUrl);
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    return response.json();
-                }
-
-                async function displayLeaderboard() {
-                    try {
-                        const leaderboard = await fetchLeaderboard();
-                        const tbody = document.querySelector('#leaderboard tbody');
-                        tbody.innerHTML = ''; // Clear existing rows
-                        leaderboard.forEach((player, index) => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                                <td>${index + 1}</td>
-                                <td>${player.name}</td>
-                                <td>${player.score}</td>
-                            `;
-                            tbody.appendChild(row);
-                        });
-                    } catch (error) {
-                        console.error('Error fetching leaderboard:', error);
-                    }
-                }
-
-                displayLeaderboard();
-            });
-        </script>
     </main>
+    <script src="assets/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const leaderboardUrl = 'https://cj-ml-word-game-351479244e3e.herokuapp.com/leaderboard';
+
+            async function fetchLeaderboard() {
+                const response = await fetch(leaderboardUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            }
+
+            async function displayLeaderboard() {
+                try {
+                    const leaderboard = await fetchLeaderboard();
+                    const tbody = document.querySelector('#leaderboard');
+                    tbody.innerHTML = ''; // Clear existing rows
+                    leaderboard.forEach((player, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${player.name}</td>
+                            <td>${player.score}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                } catch (error) {
+                    console.error('Error fetching leaderboard:', error);
+                }
+            }
+
+            displayLeaderboard();
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
