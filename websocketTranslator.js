@@ -1,4 +1,5 @@
 (function waitForLivechat() {
+    // Check if Livechat is defined
     if (typeof Livechat === 'undefined') {
         console.log('Livechat is not defined yet. Waiting...');
         setTimeout(waitForLivechat, 100); // Retry every 100ms
@@ -7,7 +8,7 @@
 
     console.log('Livechat is now defined. Proceeding with WebSocket injection.');
 
-    // Your original script goes here
+    // Your original script logic follows here
     const originalConnect = Livechat.connection.connect;
 
     Livechat.connection.connect = async function() {
