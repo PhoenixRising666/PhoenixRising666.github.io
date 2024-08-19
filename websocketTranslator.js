@@ -1,10 +1,18 @@
-(function waitForWebSocket() {
-    // Assume the WebSocket is stored on Livechat.connection.ws or similar
-    if (typeof Livechat !== 'undefined' && Livechat.connection && Livechat.connection.ws) {
-        console.log('WebSocket found. Attaching listeners.');
+(function() {
+    // Array to store WebSocket instances
+    const sockets = [];
 
-        // Attach event listeners
-        Livechat.connection.ws.addEventListener('message', function(event) {
+    // Save the native WebSocket constructor
+    const nativeWebSocket = window.WebSocket;
+
+    // Override the global WebSocket constructor
+    window.WebSocket = function(...args) {
+        const socket = new nativeWebSocket(...args);
+        sockets.push(socket);
+        console.log('WebSocket captured:', socket);
+
+        // Optionally, attach listeners directly here
+        socket.addEventListener('message', function(event) {
             console.log('WebSocket message received:', event.data);
 
             try {
@@ -27,21 +35,31 @@
             }
         });
 
-        Livechat.connection.ws.addEventListener('open', function() {
-            console.log('WebSocket connection opened:', Livechat.connection.ws);
+        socket.addEventListener('open', function() {
+            console.log('WebSocket connection opened:', socket);
         });
 
-        Livechat.connection.ws.addEventListener('close', function() {
+        socket.addEventListener('close', function() {
             console.log('WebSocket connection closed.');
         });
 
-        Livechat.connection.ws.addEventListener('error', function(error) {
+        socket.addEventListener('error', function(error) {
             console.error('WebSocket error:', error);
         });
 
-        console.log('Listeners attached successfully.');
-    } else {
-        console.log('WebSocket not found yet. Retrying...');
-        setTimeout(waitForWebSocket, 100); // Retry every 100ms
-    }
+        return socket;
+    };
+
+    // Example: Doing something with the sockets after a delay
+    setTimeout(() => {
+        console.log('Captured WebSocket instances:', sockets);
+        // You can now interact with the captured WebSockets here
+        // For example, log all messages from all captured sockets:
+        sockets.forEach((socket, index) => {
+            console.log(`WebSocket ${index + 1}:`, socket);
+            // You could add more event listeners or send messages here
+        });
+    }, 1000);
+
+    console.log('WebSocket override script injected successfully.');
 })();
