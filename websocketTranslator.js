@@ -1,33 +1,11 @@
-(function waitForLivechat() {
-    // Check if Livechat is defined
-    if (typeof Livechat === 'undefined') {
-        console.log('Livechat is not defined yet. Waiting...');
-        setTimeout(waitForLivechat, 100); // Retry every 100ms
-        return;
-    }
+(function waitForWebSocket() {
+    // Assume the WebSocket is stored on Livechat.connection.ws or similar
+    if (typeof Livechat !== 'undefined' && Livechat.connection && Livechat.connection.ws) {
+        console.log('WebSocket found. Attaching listeners.');
 
-    console.log('Livechat is now defined. Proceeding with WebSocket injection.');
-
-    // Your original script logic follows here
-    const originalConnect = Livechat.connection.connect;
-
-    Livechat.connection.connect = async function() {
-        console.log('WebSocket connection process initiated.');
-
-        await originalConnect.apply(this, arguments);
-
-        console.log('WebSocket connection established.');
-        console.log('Livechat connection object:', this);
-        console.log('WebSocket object:', this.ws);
-
-        const originalOnMessage = this.ws.onmessage;
-
-        this.ws.onmessage = function(event) {
+        // Attach event listeners
+        Livechat.connection.ws.addEventListener('message', function(event) {
             console.log('WebSocket message received:', event.data);
-
-            if (typeof originalOnMessage === 'function') {
-                originalOnMessage.call(this, event);
-            }
 
             try {
                 const incomingMessage = JSON.parse(event.data);
@@ -47,10 +25,23 @@
             } catch (error) {
                 console.error('Error processing message:', error);
             }
-        };
+        });
 
-        console.log('Custom WebSocket message handler injected successfully.');
-    };
+        Livechat.connection.ws.addEventListener('open', function() {
+            console.log('WebSocket connection opened:', Livechat.connection.ws);
+        });
 
-    console.log('WebSocket connection override set up complete.');
+        Livechat.connection.ws.addEventListener('close', function() {
+            console.log('WebSocket connection closed.');
+        });
+
+        Livechat.connection.ws.addEventListener('error', function(error) {
+            console.error('WebSocket error:', error);
+        });
+
+        console.log('Listeners attached successfully.');
+    } else {
+        console.log('WebSocket not found yet. Retrying...');
+        setTimeout(waitForWebSocket, 100); // Retry every 100ms
+    }
 })();
