@@ -12,6 +12,4 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Start looking for the button
-    hideOptionsButton();
 });
