@@ -9,6 +9,12 @@
         socket.addEventListener('message', function(event) {
             const incomingMessage = JSON.parse(event.data);
 
+            // Check if the collection is "stream-room-messages"
+            if (incomingMessage.collection !== 'stream-room-messages') {
+                console.log(`Message ignored due to collection: ${incomingMessage.collection}`);
+                return;
+            }
+
             if (incomingMessage.fields && incomingMessage.fields.args && incomingMessage.fields.args.length > 0) {
                 incomingMessage.fields.args.forEach(arg => {
                     const username = arg.u.username;
@@ -41,7 +47,7 @@
                                 }
                             }
                         });
-                    }, 100); // Adjust the delay as needed
+                    }, 10); // Adjust the delay as needed
                 });
             }
         });
