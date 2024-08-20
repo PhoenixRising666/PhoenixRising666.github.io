@@ -11,6 +11,14 @@
 
             if (incomingMessage.fields && incomingMessage.fields.args && incomingMessage.fields.args.length > 0) {
                 incomingMessage.fields.args.forEach(arg => {
+                    const username = arg.u.username;
+
+                    // Ignore the message if the username includes "guest"
+                    if (username.includes('guest')) {
+                        console.log(`Message from guest (${username}) ignored.`);
+                        return;
+                    }
+
                     const messageText = arg.msg;
                     const germanTranslation = arg.translations.de;
 
