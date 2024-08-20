@@ -17,19 +17,25 @@
                     console.log('Received message:', messageText);
                     console.log('German translation:', germanTranslation);
 
-                    // Use querySelectorAll to find elements containing the text
-                    const messageElements = document.querySelectorAll('div[class*="message-text"] > div');
+                    // Delay the search and replace operation to ensure the DOM is ready
+                    setTimeout(() => {
+                        // Use querySelectorAll to find elements containing the text
+                        const messageElements = document.querySelectorAll('div[class*="message-text"] > div');
 
-                    messageElements.forEach(element => {
-                        if (element.textContent.trim() === messageText.trim()) {
-                            console.log(`Text matched: ${element.textContent}. Replacing with: ${germanTranslation}`);
-                            element.textContent = germanTranslation;
-                        }
-                    });
+                        messageElements.forEach(element => {
+                            // Ensure we're only replacing text that exactly matches `messageText`
+                            if (element.textContent.trim() === messageText.trim()) {
+                                console.log(`Text matched: ${element.textContent}. Replacing with: ${germanTranslation}`);
+                                element.textContent = germanTranslation;
+                            }
+                        });
+                    }, 100); // Adjust the delay as needed
                 });
             }
         });
 
         return socket;
     };
+
+    console.log('WebSocket override script injected successfully.');
 })();
