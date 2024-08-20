@@ -25,8 +25,12 @@
                         messageElements.forEach(element => {
                             // Ensure we're only replacing text that exactly matches `messageText`
                             if (element.textContent.trim() === messageText.trim()) {
-                                console.log(`Text matched: ${element.textContent}. Replacing with: ${germanTranslation}`);
-                                element.textContent = germanTranslation;
+                                if (germanTranslation) { // Only replace if germanTranslation is defined
+                                    console.log(`Text matched: ${element.textContent}. Replacing with: ${germanTranslation}`);
+                                    element.textContent = germanTranslation;
+                                } else {
+                                    console.log(`Text matched: ${element.textContent}, but no German translation available. No replacement made.`);
+                                }
                             }
                         });
                     }, 100); // Adjust the delay as needed
